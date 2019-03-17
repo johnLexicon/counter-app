@@ -1,43 +1,33 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
-  state = {
-    count: 0,
-    tags: ["tag1", "tag2", "tag3"]
-  };
-
-  formatCount() {
-    return this.state.count === 0 ? "Zero" : this.state.count;
-  }
-
-  //Must be an arrow function to be able to use the this object, otherwise you must bind "this" to the function
-  //in the constructor e.g this.handleIncrement.bind(this)
-  handleIncrement = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
-
   render() {
     return (
-      <React.Fragment>
+      <div>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
-          onClick={this.handleIncrement}
+          onClick={() => this.props.onIncrement(this.props.counter)}
           className="btn btn-secondary btn-sm"
         >
           Increment
         </button>
-        <ul>
-          {this.state.tags.map(t => (
-            <li key={t}>{t}</li>
-          ))}
-        </ul>
-      </React.Fragment>
+        <button
+          onClick={() => this.props.onDelete(this.props.counter.id)}
+          className="btn btn-danger btn-sm m-2"
+        >
+          Delete
+        </button>
+      </div>
     );
+  }
+
+  formatCount() {
+    return this.props.counter.value === 0 ? "Zero" : this.props.counter.value;
   }
 
   getBadgeClasses() {
     let classes = "badge m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
+    classes += this.props.counter.value === 0 ? "warning" : "primary";
     return classes;
   }
 }
