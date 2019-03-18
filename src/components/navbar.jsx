@@ -3,6 +3,7 @@ import React from "react";
 //Stateless functional component
 //The props must be declared as a parameter to the functional component.
 const NavBar = props => {
+  console.log("NavBar-component rendered");
   return (
     <nav className="navbar navbar-light bg-light">
       <a className="navbar-brand" href="https://www.google.se">
